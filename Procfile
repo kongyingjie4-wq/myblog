@@ -1,1 +1,1 @@
-web: python manage.py migrate && gunicorn myblog.wsgi
+web: python manage.py loaddata data.json && gunicorn myblog.wsgi
