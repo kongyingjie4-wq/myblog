@@ -5,86 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>我的博客 - iOS 简约风</title>
     <style>
+        /* 这里保留你之前完美的 CSS 样式 */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            background-color: #f5f5f7; /* 苹果标志性的浅灰色 */
-            font-family: -apple-system, "SF Pro SC", "SF Pro Text", "Helvetica Neue", sans-serif;
-            color: #1d1d1f;
-            line-height: 1.5;
-        }
-
-        /* 修复后的导航栏 */
+        body { background-color: #f5f5f7; font-family: -apple-system, sans-serif; color: #1d1d1f; }
         .nav-header {
-            height: 48px;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: saturate(180%) blur(20px);
-            -webkit-backdrop-filter: saturate(180%) blur(20px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: fixed; /* 固定在顶部 */
-            top: 0;
-            width: 100%;
-            z-index: 9999;
+            height: 48px; background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px);
+            display: flex; align-items: center; justify-content: center;
+            position: fixed; top: 0; width: 100%; z-index: 9999;
             border-bottom: 0.5px solid rgba(0,0,0,0.1);
         }
-
-        /* 绝对修复：锁定 Logo 尺寸 */
-        .apple-logo {
-            width: 20px !important;
-            height: 20px !important;
-            flex-shrink: 0;
-        }
-
-        .main-container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 80px 20px 40px; /* 顶部留出 80px 避开导航栏 */
-        }
-
-        .page-title {
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 24px;
-            letter-spacing: -0.5px;
-        }
-
-        /* iOS 风格卡片 */
+        .apple-logo { width: 18px !important; height: 18px !important; }
+        .main-container { max-width: 600px; margin: 0 auto; padding: 80px 20px 40px; }
+        .page-title { font-size: 32px; font-weight: 700; margin-bottom: 24px; }
         .article-card {
-            background: #ffffff;
-            border-radius: 20px;
-            padding: 24px;
-            margin-bottom: 16px;
-            text-decoration: none;
-            display: block;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            background: #ffffff; border-radius: 18px; padding: 24px; margin-bottom: 16px;
+            text-decoration: none; display: block; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            transition: all 0.2s;
         }
-
-        .article-card:active {
-            transform: scale(0.97); /* 点击时的弹性反馈 */
-        }
-
-        .article-card h2 {
-            font-size: 20px;
-            font-weight: 600;
-            color: #1d1d1f;
-            margin-bottom: 8px;
-        }
-
-        .card-meta {
-            font-size: 13px;
-            color: #86868b;
-        }
+        .article-card:active { transform: scale(0.98); }
+        .article-card h2 { font-size: 20px; color: #1d1d1f; margin-bottom: 8px; }
+        .card-meta { font-size: 13px; color: #86868b; }
     </style>
 </head>
 <body>
-
     <header class="nav-header">
-        <svg class="apple-logo" viewBox="0 0 14 18" fill="black">
-            <path d="M13.026 12.008c-.628.913-1.282 1.838-2.288 1.857-.988.018-1.306-.583-2.437-.583-1.13 0-1.48.566-2.418.583-.988.018-1.7-.986-2.33-1.898-1.283-1.856-2.264-5.242-1.013-7.412 1.252-2.17 3.503-2.616 4.706-2.636 1.13-.019 2.032.7 2.723.7.69 0 1.812-.89 3.167-.753.567.024 2.16.23 3.177 1.716-.08.05-.1.06-.11.068a3.193 3.193 0 0 0-1.92 2.87c.01 2.05 1.66 2.76 1.68 2.77.01.01.01.01.013.013a.138.138 0 0 1 0 .022zM7.108 3.328c-.287-.367-.47-.872-.416-1.383.433.023.943.298 1.25.666.275.33.472.843.41 1.353-.417.03-.927-.27-1.244-.636z"></path>
-        </svg>
+        <svg class="apple-logo" viewBox="0 0 14 18"><path d="M13.026 12.008c-.628.913-1.282 1.838-2.288 1.857-.988.018-1.306-.583-2.437-.583-1.13 0-1.48.566-2.418.583-.988.018-1.7-.986-2.33-1.898-1.283-1.856-2.264-5.242-1.013-7.412 1.252-2.17 3.503-2.616 4.706-2.636 1.13-.019 2.032.7 2.723.7.69 0 1.812-.89 3.167-.753.567.024 2.16.23 3.177 1.716-.08.05-.1.06-.11.068a3.193 3.193 0 0 0-1.92 2.87c.01 2.05 1.66 2.76 1.68 2.77.01.01.01.01.013.013a.138.138 0 0 1 0 .022zM7.108 3.328c-.287-.367-.47-.872-.416-1.383.433.023.943.298 1.25.666.275.33.472.843.41 1.353-.417.03-.927-.27-1.244-.636z"></path></svg>
     </header>
 
     <div class="main-container">
@@ -93,11 +39,23 @@
         <a href="/blog/{{ article.pk }}/" class="article-card">
             <h2>{{ article.title }}</h2>
             <div class="card-meta">
-                {{ article.created_at|date:"Y年m月d日" }} · 阅读 {{ article.views }} 次
+                {{ article.created_at|date:"Y-m-d" }} · 观看 <span class="view-count">{{ article.views }}</span> 次
             </div>
         </a>
         {% endfor %}
     </div>
 
+    <script>
+        (function () {
+            // 监听浏览器的 pageshow 事件
+            window.onpageshow = function (event) {
+                // 如果 event.persisted 为 true，说明页面是从缓存（往回看）加载的
+                if (event.persisted) {
+                    // 强制刷新当前页面
+                    window.location.reload();
+                }
+            };
+        })();
+    </script>
 </body>
 </html>
