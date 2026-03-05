@@ -1,24 +1,103 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
     <meta charset="utf-8">
-    <title>我的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的博客 - iOS 简约风</title>
     <style>
-        body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; }
-        h1 { color: #333; border-bottom: 2px solid #007bff; padding-bottom: 10px; }
-        .article-item { margin: 20px 0; padding: 15px; border: 1px solid #eee; border-radius: 5px; }
-        .article-item h2 { margin: 0 0 8px 0; }
-        .article-item a { color: #007bff; text-decoration: none; }
-        .meta { color: #999; font-size: 14px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: #f5f5f7; /* 苹果标志性的浅灰色 */
+            font-family: -apple-system, "SF Pro SC", "SF Pro Text", "Helvetica Neue", sans-serif;
+            color: #1d1d1f;
+            line-height: 1.5;
+        }
+
+        /* 修复后的导航栏 */
+        .nav-header {
+            height: 48px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: fixed; /* 固定在顶部 */
+            top: 0;
+            width: 100%;
+            z-index: 9999;
+            border-bottom: 0.5px solid rgba(0,0,0,0.1);
+        }
+
+        /* 绝对修复：锁定 Logo 尺寸 */
+        .apple-logo {
+            width: 20px !important;
+            height: 20px !important;
+            flex-shrink: 0;
+        }
+
+        .main-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 80px 20px 40px; /* 顶部留出 80px 避开导航栏 */
+        }
+
+        .page-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            letter-spacing: -0.5px;
+        }
+
+        /* iOS 风格卡片 */
+        .article-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 16px;
+            text-decoration: none;
+            display: block;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .article-card:active {
+            transform: scale(0.97); /* 点击时的弹性反馈 */
+        }
+
+        .article-card h2 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1d1d1f;
+            margin-bottom: 8px;
+        }
+
+        .card-meta {
+            font-size: 13px;
+            color: #86868b;
+        }
     </style>
 </head>
 <body>
-    <h1>我的博客</h1>
-    {% for article in articles %}
-    <div class="article-item">
-        <h2><a href="/blog/{{ article.pk }}/">{{ article.title }}</a></h2>
-        <div class="meta">{{ article.created_at|date:"Y-m-d" }} · 阅读 {{ article.views }} 次</div>
+
+    <header class="nav-header">
+        <svg class="apple-logo" viewBox="0 0 14 18" fill="black">
+            <path d="M13.026 12.008c-.628.913-1.282 1.838-2.288 1.857-.988.018-1.306-.583-2.437-.583-1.13 0-1.48.566-2.418.583-.988.018-1.7-.986-2.33-1.898-1.283-1.856-2.264-5.242-1.013-7.412 1.252-2.17 3.503-2.616 4.706-2.636 1.13-.019 2.032.7 2.723.7.69 0 1.812-.89 3.167-.753.567.024 2.16.23 3.177 1.716-.08.05-.1.06-.11.068a3.193 3.193 0 0 0-1.92 2.87c.01 2.05 1.66 2.76 1.68 2.77.01.01.01.01.013.013a.138.138 0 0 1 0 .022zM7.108 3.328c-.287-.367-.47-.872-.416-1.383.433.023.943.298 1.25.666.275.33.472.843.41 1.353-.417.03-.927-.27-1.244-.636z"></path>
+        </svg>
+    </header>
+
+    <div class="main-container">
+        <h1 class="page-title">全部文章</h1>
+        {% for article in articles %}
+        <a href="/blog/{{ article.pk }}/" class="article-card">
+            <h2>{{ article.title }}</h2>
+            <div class="card-meta">
+                {{ article.created_at|date:"Y年m月d日" }} · 阅读 {{ article.views }} 次
+            </div>
+        </a>
+        {% endfor %}
     </div>
-    {% endfor %}
+
 </body>
 </html>

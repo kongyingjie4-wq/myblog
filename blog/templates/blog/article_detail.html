@@ -1,20 +1,85 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
     <meta charset="utf-8">
-    <title>{{ article.title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ article.title }} - 详情</title>
     <style>
-        body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; }
-        h1 { color: #333; }
-        .meta { color: #999; font-size: 14px; margin-bottom: 30px; }
-        .content { line-height: 1.8; color: #444; }
-        a { color: #007bff; text-decoration: none; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: #ffffff;
+            font-family: -apple-system, sans-serif;
+            color: #1d1d1f;
+        }
+
+        .nav-header {
+            height: 48px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 9999;
+            border-bottom: 0.5px solid rgba(0,0,0,0.1);
+        }
+
+        .apple-logo {
+            width: 20px !important;
+            height: 20px !important;
+        }
+
+        .main-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 80px 24px 40px;
+        }
+
+        .back-btn {
+            color: #0071e3;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .article-title {
+            font-size: 34px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .meta {
+            color: #86868b;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        .content {
+            font-size: 17px;
+            line-height: 1.6;
+        }
     </style>
 </head>
 <body>
-    <a href="/">← 返回列表</a>
-    <h1>{{ article.title }}</h1>
-    <div class="meta">{{ article.created_at|date:"Y-m-d" }} · 阅读 {{ article.views }} 次</div>
-    <div class="content">{{ article.content }}</div>
+
+    <header class="nav-header">
+        <svg class="apple-logo" viewBox="0 0 14 18" fill="black">
+            <path d="M13.026 12.008c-.628.913-1.282 1.838-2.288 1.857-.988.018-1.306-.583-2.437-.583-1.13 0-1.48.566-2.418.583-.988.018-1.7-.986-2.33-1.898-1.283-1.856-2.264-5.242-1.013-7.412 1.252-2.17 3.503-2.616 4.706-2.636 1.13-.019 2.032.7 2.723.7.69 0 1.812-.89 3.167-.753.567.024 2.16.23 3.177 1.716-.08.05-.1.06-.11.068a3.193 3.193 0 0 0-1.92 2.87c.01 2.05 1.66 2.76 1.68 2.77.01.01.01.01.013.013a.138.138 0 0 1 0 .022zM7.108 3.328c-.287-.367-.47-.872-.416-1.383.433.023.943.298 1.25.666.275.33.472.843.41 1.353-.417.03-.927-.27-1.244-.636z"></path>
+        </svg>
+    </header>
+
+    <div class="main-container">
+        <a href="/blog/" class="back-btn">← 返回</a>
+        <h1 class="article-title">{{ article.title }}</h1>
+        <div class="meta">{{ article.created_at|date:"Y-m-d" }} · {{ article.views }} 阅读</div>
+        <div class="content">{{ article.content|linebreaks }}</div>
+    </div>
+
 </body>
 </html>
