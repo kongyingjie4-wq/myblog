@@ -3,59 +3,103 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的博客 - iOS 简约风</title>
+    <title>吴彦祖的博客 - iOS 动态重构版</title>
     <style>
-        /* 这里保留你之前完美的 CSS 样式 */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: #f5f5f7; font-family: -apple-system, sans-serif; color: #1d1d1f; }
+        body { 
+            background-color: #f5f5f7; 
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif; 
+            color: #1d1d1f; 
+            overflow-x: hidden;
+        }
+
+        /* 1. 动态磨砂导航栏 */
         .nav-header {
-            height: 48px; background: rgba(255, 255, 255, 0.8);
+            height: 48px; background: rgba(255, 255, 255, 0.75);
             backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px);
             display: flex; align-items: center; justify-content: center;
             position: fixed; top: 0; width: 100%; z-index: 9999;
             border-bottom: 0.5px solid rgba(0,0,0,0.1);
         }
-        .apple-logo { width: 18px !important; height: 18px !important; }
-        .main-container { max-width: 600px; margin: 0 auto; padding: 80px 20px 40px; }
-        .page-title { font-size: 32px; font-weight: 700; margin-bottom: 24px; }
-        .article-card {
-            background: #ffffff; border-radius: 18px; padding: 24px; margin-bottom: 16px;
-            text-decoration: none; display: block; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-            transition: all 0.2s;
+        .apple-logo { width: 18px !important; height: 18px !important; fill: #1d1d1f; }
+
+        /* 2. 全局呼吸背景光 (震撼感的来源) */
+        .gradient-bg {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: radial-gradient(circle at 50% 50%, rgba(0,122,255,0.05) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255,45,85,0.03) 0%, transparent 40%);
+            z-index: -1; animation: pulse 10s infinite alternate ease-in-out;
         }
-        .article-card:active { transform: scale(0.98); }
-        .article-card h2 { font-size: 20px; color: #1d1d1f; margin-bottom: 8px; }
-        .card-meta { font-size: 13px; color: #86868b; }
+
+        .main-container { max-width: 600px; margin: 0 auto; padding: 100px 20px 40px; }
+        
+        /* 名字动效 */
+        .page-title { 
+            font-size: 34px; font-weight: 700; letter-spacing: -1px; margin-bottom: 30px;
+            animation: slideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        /* 3. 卡片逐个滑入动画 */
+        .article-card {
+            background: #ffffff; border-radius: 20px; padding: 24px; margin-bottom: 20px;
+            text-decoration: none; display: block; 
+            box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+            transition: all 0.5s cubic-bezier(0.15, 0.83, 0.66, 1);
+            opacity: 0; transform: translateY(30px);
+        }
+
+        .article-card.show {
+            opacity: 1; transform: translateY(0);
+        }
+
+        .article-card:hover {
+            transform: scale(1.02) translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        .article-card h2 { font-size: 21px; color: #1d1d1f; margin-bottom: 10px; line-height: 1.3; }
+        .card-meta { font-size: 14px; color: #86868b; display: flex; align-items: center; gap: 10px; }
+        .view-badge { background: #f5f5f7; padding: 2px 8px; border-radius: 6px; }
+
+        /* 动画关键帧 */
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse { from { opacity: 0.6; } to { opacity: 1; } }
     </style>
 </head>
 <body>
+    <div class="gradient-bg"></div>
     <header class="nav-header">
         <svg class="apple-logo" viewBox="0 0 14 18"><path d="M13.026 12.008c-.628.913-1.282 1.838-2.288 1.857-.988.018-1.306-.583-2.437-.583-1.13 0-1.48.566-2.418.583-.988.018-1.7-.986-2.33-1.898-1.283-1.856-2.264-5.242-1.013-7.412 1.252-2.17 3.503-2.616 4.706-2.636 1.13-.019 2.032.7 2.723.7.69 0 1.812-.89 3.167-.753.567.024 2.16.23 3.177 1.716-.08.05-.1.06-.11.068a3.193 3.193 0 0 0-1.92 2.87c.01 2.05 1.66 2.76 1.68 2.77.01.01.01.01.013.013a.138.138 0 0 1 0 .022zM7.108 3.328c-.287-.367-.47-.872-.416-1.383.433.023.943.298 1.25.666.275.33.472.843.41 1.353-.417.03-.927-.27-1.244-.636z"></path></svg>
     </header>
 
     <div class="main-container">
-        <h1 class="page-title">全部文章</h1>
+        <h1 class="page-title">吴彦祖的博客</h1>
         {% for article in articles %}
         <a href="/blog/{{ article.pk }}/" class="article-card">
             <h2>{{ article.title }}</h2>
             <div class="card-meta">
-                {{ article.created_at|date:"Y-m-d" }} · 观看 <span class="view-count">{{ article.views }}</span> 次
+                <span>{{ article.created_at|date:"Y-m-d" }}</span>
+                <span class="view-badge">观看 {{ article.views }} 次</span>
             </div>
         </a>
         {% endfor %}
     </div>
 
     <script>
-        (function () {
-            // 监听浏览器的 pageshow 事件
-            window.onpageshow = function (event) {
-                // 如果 event.persisted 为 true，说明页面是从缓存（往回看）加载的
-                if (event.persisted) {
-                    // 强制刷新当前页面
-                    window.location.reload();
-                }
-            };
-        })();
+        // 1. 实现卡片逐个滑入的瀑布流效果
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.article-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('show');
+                }, index * 100); // 每个卡片间隔100ms显示
+            });
+        });
+
+        // 2. 之前那个返回刷新的逻辑保持不变
+        window.onpageshow = function(event) {
+            if (event.persisted) window.location.reload();
+        };
     </script>
 </body>
 </html>
